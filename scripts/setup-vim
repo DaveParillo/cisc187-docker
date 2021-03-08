@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# vimrc=~dparillo/public_html/cisc187/examples/_vimrc
+# fmt=~dparillo/public_html/cisc187/examples/_clang_format
+
+# echo "setting up vim for account `whoami`"
+# echo "replace ~.vimrc"
+
+# if [ -f ~/.vimrc ]; then
+#   echo backup existing .vimrc
+#   cp ~/.vimrc ~/.vimrc.bak
+# fi
+
+# cp ${vimrc} ~/.vimrc
+# diff -qs ${vimrc} ~/.vimrc
+# if [ $? -eq 1 ]; then
+#   echo local vimrc differs from ${vimrc}
+#   exit -1
+# fi
+
+# if [ -f ~/.clang-format ]; then
+#   echo backup existing .clang-format
+#   cp ~/.clang-format ~/.clang-format.bak
+# fi
+# cp ${fmt} ~/.clang-format
+
+
+# echo install plugins
+mkdir -p /root/.vim/autoload /root/vim/bundle
+
+if [ ! -f /root/.vim/autoload/pathogen.vim ]; then
+  # echo install pathogen
+  curl -LSso /root/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+fi
+
+if [ -f /root/.vim/autoload/pathogen.vim ]; then
+  sed -i 's/^" execute pathogen.*/execute pathogen#infect()/'  ~/.vimrc
+fi
+
+cd /root/.vim/bundle
+if [ ! -d commentary ]; then
+  # echo install vim-commentary
+  git clone https://tpope.io/vim/commentary.git
+fi
+# echo update vim help with vim-commentary
+vim -u NONE -c "helptags commentary/doc" -c q
+
+if [ ! -d vim-fugitive ]; then
+  # echo install vim-fugitive
+  git clone https://github.com/tpope/vim-fugitive.git
+fi
+# echo update vim help with vim-fugitive
+vim -u NONE -c "helptags vim-fugitive/doc" -c q
+
+if [ ! -d vim-cmake ]; then
+  # echo install vim-cmake
+  git clone git://github.com/vhdirk/vim-cmake.git
+fi
+# echo update vim help with vim-cmake
+vim -u NONE -c "helptags vim-cmake/doc" -c q
+
+if [ ! -d vim-diff-enhanced ]; then
+  # echo install vim-diff-enhanced
+  git clone https://github.com/chrisbra/vim-diff-enhanced.git
+fi
+# echo update vim help with vim-diff-enhanced
+vim -u NONE -c "helptags vim-diff-enhanced/doc" -c q
+
+# echo vim setup complete
+
