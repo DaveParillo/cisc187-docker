@@ -1,0 +1,12 @@
+[user]
+	name = DaveParillo
+	email = DaveParillo@users.noreply.github.com
+[core]
+	editor = vi
+[merge]
+	tool = vimdiff
+[pull]
+	rebase = false
+[push]
+	default = simple
+
