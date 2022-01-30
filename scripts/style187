@@ -1,5 +1,5 @@
 #!/bin/sh
-STD=c++14
+STD=c++17
 CXXFLAGS=-std=${STD}
 
 echo "Correctness:"
@@ -10,6 +10,6 @@ clang-tidy -quiet -checks=$CHECKS  $* -- $CXXFLAGS
 
 echo -e "\nCoding standards:"
 
-CHECKS=-clang*,modernize-*,llvm-*,misc-*,readability-*,cppcoreguidelines-*
+CHECKS=-clang*,modernize-*,llvm-*,misc-*,readability-*,cppcoreguidelines-*,-cppcoreguidelines-owning-memory,-modernize-use-trailing-return-type
 clang-tidy -quiet -checks=$CHECKS  $* -- $CXXFLAGS
 

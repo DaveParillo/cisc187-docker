@@ -2,7 +2,7 @@
 
 CHECKS=clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,llvm-*,modernize-*,misc-*,performance-*,readability-*
 #CHECKS=clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,hicpp-*,llvm-*,modernize-*,misc-*,performance-*,readability-*
-CXXFLAGS=-std=c++14
+CXXFLAGS=-std=c++17
 
 clang-tidy -quiet -checks=$CHECKS  $* -- $CXXFLAGS
 

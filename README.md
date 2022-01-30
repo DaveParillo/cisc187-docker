@@ -2,8 +2,6 @@
 A docker container with all the tools needed to
 compile homework for CISC187 at SD Mesa College.
 
-The image is fairly light, based on alpine linux.
-
 The easiest way to get the image is from docker hub:
 
 ```
@@ -32,6 +30,34 @@ mounts the local directory `code` to the reserved volume:
 docker run --rm -it -v /full/path/to/my/code:/mnt/cisc187 dparillo/cisc187
 ```
 
-Once running, the container will start an alpine shell.
+or 
+
+```
+docker run --rm -it -v `pwd`:/mnt/cisc187 dparillo/cisc187
+```
+
+On windows the host path must use Windows path separators
+and include the drive letter:
+
+```
+docker run --rm -it -v C:\Users\path\to\my\code:/mnt/cisc187 dparillo/cisc187
+```
+
+Notice the guest (linux) path uses linux path separators.
+
+Once running, the container will start a bash shell.
+
+If you need to run the gdb or lldb debuggers,
+then you need to add two arguments to the start command:
+
+```
+--cap-add=SYS_PTRACE --security-opt seccomp=unconfined
+```
  
+The complete command looks like this:
+
+```
+docker run --rm --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /full/path/to/my/code:/mnt/cisc187 dparillo/cisc187
+```
+
 
