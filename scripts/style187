@@ -10,6 +10,6 @@ clang-tidy -quiet -checks=$CHECKS  $* -- $CXXFLAGS
 
 echo -e "\nCoding standards:"
 
-CHECKS=-clang*,modernize-*,llvm-*,misc-*,readability-*,cppcoreguidelines-*,-cppcoreguidelines-owning-memory,-modernize-use-trailing-return-type
+CHECKS=-clang*,modernize-*,llvm-*,misc-*,readability-*,cppcoreguidelines-*,-cppcoreguidelines-owning-memory,-modernize-use-trailing-return-type,-readability-named-parameter,-llvm-header-guard,-llvm-include-order
 clang-tidy -quiet -checks=$CHECKS  $* -- $CXXFLAGS
 
