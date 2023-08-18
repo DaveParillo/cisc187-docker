@@ -1,4 +1,4 @@
-FROM debian:unstable-slim
+FROM debian:sid-slim
 
 LABEL maintainer="Dave Parillo <dparillo@sdccd.edu>"
 
@@ -13,8 +13,8 @@ RUN apt-get update \
         clang-format-14 \
         cmake \
         cppcheck \
-        g++ \
-        gcc \
+        g++-13 \
+        gcc-13 \
         gdb \
         git \
         libc-dev \
@@ -55,6 +55,9 @@ RUN apt-get update \
          --slave /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 \
          --slave /usr/bin/clang-tidy-diff clang-tidy-diff /usr/bin/clang-tidy-diff-14.py \
     && update-alternatives \
+         --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 \
+         --slave /usr/bin/g++ g++ /usr/bin/g++-13 \
+    && update-alternatives \
          --install /usr/bin/lldb lldb /usr/bin/lldb-14 100
        
 WORKDIR /mnt/cisc187
@@ -69,7 +72,6 @@ ENV PATH /home/mesa/bin:$PATH
 ENV PACK_DIR /home/mesa/.vim/pack/default/start
 
 COPY --chown=mesa:mesa examples /home/mesa/examples
-COPY --chown=mesa:mesa scripts-private /home/mesa/bin
 COPY --chown=mesa:mesa scripts /home/mesa/bin
 COPY --chown=mesa:mesa _vimrc /home/mesa/.vimrc
 COPY --chown=mesa:mesa _gitconfig /home/mesa/.gitconfig
